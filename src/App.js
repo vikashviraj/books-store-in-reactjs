@@ -1,25 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
+import Home from "./component/home";
+import AddBook from "./component/add_book";
+import ViewBook from "./component/view_book";
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import React from "react";
 
-function App() {
+class App extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      books: []
+    }
+  }
+
+  render(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <Router>
+    <div id="alert">
+        <img src='./img/success.gif' alt="alert"></img>
     </div>
+    <nav>
+    <div className="nav-wrapper">
+      <a className="brand-logo" style={{margin:'0px 10px'}}>BooksWala</a>
+      <ul id="nav-mobile" className="right">
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/add-book">Add Book</Link></li>
+        <li><Link to="/view-book">Books</Link></li>
+      </ul>
+    </div>
+  </nav>
+  
+    <Route exact path="/" render={(props)=> <Home ourState={this.state} />} />
+    <Route path="/add-book" render={(props)=> <AddBook ourState={this.state} />}/>
+    <Route path="/view-book" render={(props)=> <ViewBook ourState={this.state} />} />
+  </Router>
+  </div>
   );
 }
-
+}
 export default App;
